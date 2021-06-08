@@ -1,0 +1,31 @@
+{
+	"manifest_version": 2,
+	"name": "Phishing Detector",
+	"description": "Extension that detects whether the page is spoofed or real.",
+	"version": "1.0.0",
+	"content_security_policy":"script-src 'self' https://apis.google.com; object-src 'self'",
+	"icons": {"128": "icon1.png" },
+	"browser_action": 
+	{
+		//"default_icon": "icon1.png",
+		"default_popup": "popup.html"
+		//"default-title": "a pop up will come here",
+		//"permissions": ["activeTab"],
+		//"permissions": ["*"]
+	},
+
+	"permissions": ["*"],
+	"content_scripts": [
+	{
+		"matches": [
+		"<all_urls>"
+		],
+		"js": ["popup.js"]
+		
+	}
+	],
+	"background": {
+		"scripts": ["background.js"]
+	}  
+
+}
