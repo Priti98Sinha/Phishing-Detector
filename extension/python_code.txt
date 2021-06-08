@@ -1,0 +1,88 @@
+#!/usr/bin/python3.9
+#shebang tells interpreter that the code rneeds to be compiled in py
+#one way to exec py script in apache server is by activating cgi-bin functionality (a2enmod cgi)
+#py scripts written for cgi bin, shebang is compulsory
+#default path == /usr/lib/cgi-bin/filename.py
+#perl, bash script cgi-bin support these lang
+
+import cgitb
+#cgitb = displaying errors
+
+import cgi
+#importing cgi library which is used to access fieldstorage
+#fieldtorage is used to access string value from url parameter(user input)
+
+import urllib3
+#to make http request & receive response
+
+import re
+cgitb.enable()
+print('Content-Type: text/plain')
+#print('Access-Control-Allow-Origin: *')
+print()
+#print('Ths is my test!!!!!!')
+
+fs= cgi.FieldStorage()
+#fieldstorage is a class fs is an object
+
+url1 = "https://urlvoid.com/scan/"
+for i in fs.keys(): 
+#keys() is a member function of fs
+#keys stores values
+	url2 = fs[i].value
+
+#print(url2)
+
+fin_url =  url1 + url2
+#print(fin_url)
+
+http = urllib3.PoolManager()
+r = http.request('GET', fin_url)
+
+sc = str(r.data)
+
+r1 = re.findall(">\d+\/\d\d<",sc)
+#used regex to find a digit
+temp = ""
+
+str1= temp.join(r1)
+
+r2 = re.search("\d+", str1)
+#used regex to find a first digit from expression (0/34) 
+
+#print(str1)
+
+#print(int(r2.group(0)))
+
+
+fin_int = int(r2.group(0))
+
+#if fin_int == 0:
+#	print("This site is safe to visit.")
+#elif fin_int > 0 and fin_int <= 3:
+#	print("This site seems suspicious. Proceed at your own risk")
+#elif fin_int > 3:
+#	print("This site is malicious. Request you not to proceed.")
+#else:
+#	print("error")
+
+
+
+f = open("/var/www/html/result.html", "w")
+
+
+if fin_int == 0:
+	f.write("This site is safe to visit.")
+elif fin_int > 0 and fin_int <= 3:
+	f.write("This site seems suspicious. Proceed at your own risk")
+elif fin_int > 3:
+	f.write("This site is malicious. Request you not to proceed.")
+else:
+	f.write("error")
+
+
+
+
+
+
+f.close()
