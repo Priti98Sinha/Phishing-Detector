@@ -1,6 +1,6 @@
 var request = new XMLHttpRequest();
 
-request.open('GET', 'https://192.168.0.108/result.html');
+request.open('GET', 'https://192.168.8.108/result.html');
 request.send();
 
 request.onreadystatechange = function() {
