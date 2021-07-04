@@ -22,8 +22,8 @@ if (domain.includes("www")){
 var request = new XMLHttpRequest();
 
 
-request.open('GET', 'https://192.168.0.108/cgi-bin/prod.py?x=' +domain);
-console.log('https://192.168.0.108/cgi-bin/prod.py?x=' +domain);
+request.open('GET', 'https://192.168.8.108/cgi-bin/prod.py?x=' +domain);
+console.log('https://192.168.8.108/cgi-bin/prod.py?x=' +domain);
 request.send();
 
 request.onreadystatechange = function() {
@@ -35,12 +35,3 @@ request.onreadystatechange = function() {
             
     }
 };
-    
-
-
-
-
-
-  
-
-
