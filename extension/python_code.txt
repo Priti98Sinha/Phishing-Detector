@@ -1,16 +1,9 @@
 #!/usr/bin/python3.9
-#shebang tells interpreter that the code rneeds to be compiled in py
-#one way to exec py script in apache server is by activating cgi-bin functionality (a2enmod cgi)
-#py scripts written for cgi bin, shebang is compulsory
-#default path == /usr/lib/cgi-bin/filename.py
-#perl, bash script cgi-bin support these lang
 
 import cgitb
-#cgitb = displaying errors
 
 import cgi
-#importing cgi library which is used to access fieldstorage
-#fieldtorage is used to access string value from url parameter(user input)
+
 
 import urllib3
 #to make http request & receive response
@@ -48,7 +41,6 @@ temp = ""
 str1= temp.join(r1)
 
 r2 = re.search("\d+", str1)
-#used regex to find a first digit from expression (0/34) 
 
 #print(str1)
 
@@ -56,17 +48,6 @@ r2 = re.search("\d+", str1)
 
 
 fin_int = int(r2.group(0))
-
-#if fin_int == 0:
-#	print("This site is safe to visit.")
-#elif fin_int > 0 and fin_int <= 3:
-#	print("This site seems suspicious. Proceed at your own risk")
-#elif fin_int > 3:
-#	print("This site is malicious. Request you not to proceed.")
-#else:
-#	print("error")
-
-
 
 f = open("/var/www/html/result.html", "w")
 
@@ -79,10 +60,5 @@ elif fin_int > 3:
 	f.write("This site is malicious. Request you not to proceed.")
 else:
 	f.write("error")
-
-
-
-
-
 
 f.close()
